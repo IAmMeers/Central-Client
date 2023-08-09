@@ -1,3 +1,4 @@
+
 import './App.css';
 import {
   Route,
@@ -12,7 +13,7 @@ import Burger from './pages/Burger';
 function App() {
   return (
     <div className="App">
-      {/* <h1>MY APP</h1> */}
+      {}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<TestPage/>}/>
@@ -24,3 +25,4 @@ function App() {
 }
 
 export default App;
+
