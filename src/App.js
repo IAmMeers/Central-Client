@@ -8,6 +8,7 @@ import {
 import TestPage from './pages/TestPage';
 import Burger from './pages/Burger';
 
+const config = require("./config.js");
 
 
 function App() {
