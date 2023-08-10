@@ -8,13 +8,12 @@ import {
 import TestPage from './pages/TestPage';
 import Burger from './pages/Burger';
 
-const config = require("./config.js");
-
 
 function App() {
+  
   return (
     <div className="App">
-      {/* <h1>MY APP</h1> */}
+      {}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<TestPage/>}/>
@@ -26,3 +25,4 @@ function App() {
 }
 
 export default App;
+
