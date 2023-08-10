@@ -8,10 +8,14 @@ import {
 import TestPage from './pages/TestPage';
 import Burger from './pages/Burger';
 
-const config = require("./config.js");
+//import config from './config';
+
+//console.log("\n\n\nROOT = " + config.ROOT)
+
 
 
 function App() {
+  
   return (
     <div className="App">
       {}

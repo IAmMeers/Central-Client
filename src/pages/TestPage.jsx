@@ -2,12 +2,35 @@
  * Kenneth Mendoza
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TestPage.jsx';
-import logoImage from '/Users/kennethmendoza/Desktop/SUMMER 23/445/Project/Front End/Central-Client/Central-Client/src/CentralRestLogo.png';
+//import logoImage from './src/CentralRestLogo.png';
 import { Link } from 'react-router-dom';
 
+
+//const logoImage = require(__dirname + '\\assets\\CentralRestLogo.png');
+
+
+
 const TestPage = () => {
+
+  const [data, setData] = useState(null);
+
+  console.log("TEST PAGE LAUNCH");
+
+  //Code is getting executed twice?
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/Inventory?storeID=SID1')
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
+
   const [selectedStore, setSelectedStore] = useState('');
   const [stores, setStores] = useState([
     { id: 'store1', name: 'Store 1' },
@@ -33,6 +56,20 @@ const TestPage = () => {
   };
 
   const handleAddStore = (event) => {
+
+    
+
+    console.log("Adding new store: " + newStoreName);
+    // fetch('http://localhost:5000/Inventory?storeID=SID1')
+    //      .then((response) => response.json())
+    //      .then((data) => {
+    //         console.log(data);
+    //      })
+    //      .catch((err) => {
+    //         console.log(err.message);
+    //      });
+   
+
     event.preventDefault();
     addNewStore(newStoreName);
     setNewStoreName('');
@@ -41,7 +78,7 @@ const TestPage = () => {
   return (
     <div className="body-background">
       <header>
-        <img src={logoImage} alt="Logo" className="resize-logo" />
+        {/* <img src={logoImage} alt="Logo" className="resize-logo" /> */}
       </header>
       <div className="main-content">
         <label htmlFor="stores-dropdown" className="select-label">
@@ -79,4 +116,8 @@ const TestPage = () => {
     </div>
   );
 };
+
+
+
+export default TestPage;
   
