@@ -10,13 +10,11 @@ import { Link } from 'react-router-dom';
 
 const logoImage = require('../assets/CentralRestLogo.png');
 
-
+const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
 const TestPage = () => {
 
   const [data, setData] = useState(null);
-
-  console.log("BACKEND URL: " + process.env.REACT_APP_SERVER_URL);
 
   const [selectedStore, setSelectedStore] = useState('');
   const [stores, setStores] = useState([
@@ -25,7 +23,7 @@ const TestPage = () => {
   ]);
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_SERVER_URL + '/Inventory?store_id=SID1')
+    fetch(SERVER_URL + '/Inventory?store_id=SID1')
       .then(response => {
         return response.json()
       })
