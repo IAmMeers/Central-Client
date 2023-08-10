@@ -16,7 +16,7 @@ const TestPage = () => {
 
   const [data, setData] = useState(null);
 
-  console.log("URL: " + process.env.REACT_APP_SERVER_URL);
+  console.log("BACKEND URL: " + process.env.REACT_APP_SERVER_URL);
 
   const [selectedStore, setSelectedStore] = useState('');
   const [stores, setStores] = useState([
@@ -25,7 +25,7 @@ const TestPage = () => {
   ]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/Inventory?store_id=SID1')
+    fetch(process.env.REACT_APP_SERVER_URL + '/Inventory?store_id=SID1')
       .then(response => {
         return response.json()
       })
@@ -58,7 +58,7 @@ const TestPage = () => {
     
 
     console.log("Adding new store: " + newStoreName);
-    // fetch('http://localhost:5000/Inventory?storeID=SID1')
+    // fetch(process.env.REACT_APP_SERVER_URL + '/Inventory?store_id=SID1')
     //      .then((response) => response.json())
     //      .then((data) => {
     //         console.log(data);
