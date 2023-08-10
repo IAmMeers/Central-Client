@@ -8,11 +8,6 @@ import {
 import TestPage from './pages/TestPage';
 import Burger from './pages/Burger';
 
-//import config from './config';
-
-//console.log("\n\n\nROOT = " + config.ROOT)
-
-
 
 function App() {
   

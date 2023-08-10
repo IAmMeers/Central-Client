@@ -8,7 +8,7 @@ import './TestPage.jsx';
 import { Link } from 'react-router-dom';
 
 
-//const logoImage = require(__dirname + '\\assets\\CentralRestLogo.png');
+const logoImage = require('../assets/CentralRestLogo.png');
 
 
 
@@ -16,11 +16,16 @@ const TestPage = () => {
 
   const [data, setData] = useState(null);
 
-  console.log("TEST PAGE LAUNCH");
+  console.log("URL: " + process.env.REACT_APP_SERVER_URL);
 
-  //Code is getting executed twice?
+  const [selectedStore, setSelectedStore] = useState('');
+  const [stores, setStores] = useState([
+    { id: 'store1', name: 'Store 1' },
+    { id: 'store2', name: 'Store 2' },
+  ]);
+
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/Inventory?storeID=SID1')
+    fetch('http://127.0.0.1:5000/Inventory?store_id=SID1')
       .then(response => {
         return response.json()
       })
@@ -29,13 +34,6 @@ const TestPage = () => {
       })
       .catch(error => console.error(error));
   }, []);
-
-
-  const [selectedStore, setSelectedStore] = useState('');
-  const [stores, setStores] = useState([
-    { id: 'store1', name: 'Store 1' },
-    { id: 'store2', name: 'Store 2' },
-  ]);
 
   const handleStoreChange = (event) => {
     setSelectedStore(event.target.value);
@@ -78,7 +76,7 @@ const TestPage = () => {
   return (
     <div className="body-background">
       <header>
-        {/* <img src={logoImage} alt="Logo" className="resize-logo" /> */}
+        <img src={logoImage} alt="Logo" className="resize-logo" />
       </header>
       <div className="main-content">
         <label htmlFor="stores-dropdown" className="select-label">
