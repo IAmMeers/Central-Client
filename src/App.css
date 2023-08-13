@@ -29,9 +29,10 @@
   align-items: center;
 }
 
+/* Drop Down Menu */
 select {
-  padding: 8px;  /* Padding for dropdown menu */
-  font-size: 10px; /* Font size for dropdown */
+  padding: 8px;
+  font-size: 10px;
 }
 
 /* Select a store: size */
@@ -44,6 +45,11 @@ select {
 .resize-logo {
   width: 400px;
   height: 400px;
+}
+
+/* Links */
+.link {
+  color: white;
 }
 
 

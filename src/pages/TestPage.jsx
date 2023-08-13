@@ -3,18 +3,15 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import './TestPage.jsx';
-//import logoImage from './src/CentralRestLogo.png';
+import './TestPage.jsx'; 
+import logoImage from '../assets/CentralRestLogo.png';
 import { Link } from 'react-router-dom';
 
 
-const logoImage = require('../assets/CentralRestLogo.png');
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL
+// const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const TestPage = () => {
-
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState([]);
 
   const [selectedStore, setSelectedStore] = useState('');
   const [stores, setStores] = useState([
@@ -22,16 +19,19 @@ const TestPage = () => {
     { id: 'store2', name: 'Store 2' },
   ]);
 
-  useEffect(() => {
-    fetch(SERVER_URL + '/Inventory?store_id=SID1')
-      .then(response => {
-        return response.json()
-      })
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => console.error(error));
-  }, []);
+  // useEffect(() => {
+  //   fetch(SERVER_URL + '/Inventory?store_id=SID1')
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       setData(data); // Set the fetched data to the state
+  //     })
+  //     .catch(error => console.error("Error fetching data:", error));
+  // }, []);
 
   const handleStoreChange = (event) => {
     setSelectedStore(event.target.value);
@@ -52,20 +52,6 @@ const TestPage = () => {
   };
 
   const handleAddStore = (event) => {
-
-    
-
-    console.log("Adding new store: " + newStoreName);
-    // fetch(process.env.REACT_APP_SERVER_URL + '/Inventory?store_id=SID1')
-    //      .then((response) => response.json())
-    //      .then((data) => {
-    //         console.log(data);
-    //      })
-    //      .catch((err) => {
-    //         console.log(err.message);
-    //      });
-   
-
     event.preventDefault();
     addNewStore(newStoreName);
     setNewStoreName('');
@@ -78,7 +64,7 @@ const TestPage = () => {
       </header>
       <div className="main-content">
         <label htmlFor="stores-dropdown" className="select-label">
-          Select a store:
+          Select a store from the test page:
         </label>
         <br />
         <select
@@ -87,7 +73,7 @@ const TestPage = () => {
           value={selectedStore}
           onChange={handleStoreChange}
         >
-          <option value="">Select a store</option>
+          <option value="">Select a store </option>
           {stores.map((store) => (
             <option key={store.id} value={store.id}>
               {store.name}
@@ -106,8 +92,12 @@ const TestPage = () => {
           <button type="submit">Add</button>
         </form>
         <p> </p>
-        <Link to={`/${selectedStore}`}>Go to Selected Store</Link>
+        <Link to={`/${selectedStore}`} className = "link">Go to Selected Store: {selectedStore}</Link>
+
         <p> </p>
+        <Link to={`/store`} className="link"> Go to Store Page</Link>
+        <p> </p>
+
       </div>
     </div>
   );

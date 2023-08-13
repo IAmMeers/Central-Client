@@ -6,7 +6,7 @@ import {
   Routes,
 } from "react-router-dom";
 import TestPage from './pages/TestPage';
-import Burger from './pages/Burger';
+import Store from './pages/Store.jsx';
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<TestPage/>}/>
-          <Route path="/burger" element={<Burger/>}/>
+          <Route path="/Store" element={<Store/>}/>
         </Routes>
       </BrowserRouter>
     </div>
