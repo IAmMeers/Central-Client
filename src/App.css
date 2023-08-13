@@ -14,7 +14,7 @@
 }
 
 .body-background {
-  float: center;
+  /* float: center; */
   background-color: #37404B;
   color: #F4C87A
 }
@@ -51,6 +51,57 @@ select {
 .link {
   color: white;
 }
+
+
+/* Project Tabs */
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.tab.active {
+  color: #F4C87A;
+  border-bottom: 2px solid #F4C87A;
+}
+
+.tab-content {
+  margin-top: 20px;
+}
+
+.tab-text {
+  width: 500px;
+  height: 100px;
+  /* Keep some space around the text */
+  border: 1px solid #F4C87A;
+  border-radius: 4px;
+  color: white;
+  /* Hide when not active */
+  display: none;
+}
+
+
+
+.tab-text.active {
+  display: block;
+}
+
+
+
+
+
+
+
+
 
 
 .App-link {
