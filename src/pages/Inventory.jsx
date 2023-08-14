@@ -1,5 +1,5 @@
 import React from 'react';
-
+//create a search bar 
 const Inventory = ({ inventoryData }) => {
     return (
         <div className="inventory-body">

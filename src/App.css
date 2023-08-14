@@ -1,161 +1,102 @@
-.App {
+/* App.css */
+
+/* McDonald's Colors */
+:root {
+  --mc-red: #d8121b;
+  --mc-yellow: #fecd00;
+  --mc-white: #ffffff;
+}
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--mc-white);
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background-color: var(--mc-red);
+  padding: 20px;
   text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.resize-logo {
+  max-width: 200px;
 }
 
-.body-background {
-  /* float: center; */
-  background-color: #37404B;
-  color: #F4C87A
-}
-
-.dropdown {
-  width: 200px;
-}
-
+/* Main Content */
 .main-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
 }
 
-/* Drop Down Menu */
-select {
-  padding: 8px;
-  font-size: 10px;
+.content-right {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--mc-white);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-/* Select a store: size */
-.select-label {
-  font-size: 20px;
-  color: #F4C87A
+.content-left {
+  flex: 2;
+  padding: 20px;
+  background-color: var(--mc-white);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-/* Height and Width of the logo */
-.resize-logo {
-  width: 400px;
-  height: 400px;
+/* Menu */
+.menu-container {
+  padding: 20px;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: var(--mc-yellow);
+  border-radius: 8px;
+}
+
+.item-name {
+  font-weight: bold;
+}
+
+.item-price {
+  color: var(--mc-red);
+}
+
+/* Buttons */
+.button {
+  background-color: var(--mc-red);
+  color: var(--mc-white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #b20d18;
 }
 
 /* Links */
 .link {
-  color: white;
-}
-
-
-/* Project Tabs */
-.tabs {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.tab {
-  padding: 10px 20px;
-  border: none;
-  background-color: transparent;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.tab.active {
-  color: #F4C87A;
-  border-bottom: 2px solid #F4C87A;
-}
-
-.tab-content {
-  margin-top: 20px;
-}
-
-.tab-text {
-  width: 500px;
-  height: 100px;
-  /* Keep some space around the text */
-  border: 1px solid #F4C87A;
-  border-radius: 4px;
-  color: white;
-  /* Hide when not active */
-  display: none;
-}
-.tab-text.active {
-  display: block;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-
-
-
-
-
-
-
-
-/* Store */
-.store-body {
-  text-align: center;
-  background-color: #f0f0f0;
-  padding: 20px;
-}
-
-.store-columns {
-  display: flex;
-  justify-content: space-between;
-}
-
-.left-column,
-.right-column {
-  flex-basis: calc(50% - 10px);
-}
-
-.store-section {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.store-section h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.store-section ul {
-  padding-left: 20px;
-  list-style: none;
-}
-
-.store-section li {
-  margin-bottom: 5px;
-}
-
-.store-section a {
-  color: #007bff;
+  color: var(--mc-red);
   text-decoration: none;
-  font-weight: bold;
 }
 
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.link:hover {
+  text-decoration: underline;
 }
