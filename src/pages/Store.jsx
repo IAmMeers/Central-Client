@@ -7,6 +7,8 @@ const Store = () => {
     const [staffInformation, setStaffInformation] = useState([]);
     const [contactInformation, setContactInformation] = useState([]);
 
+
+    /* FETCH THE DATA */
     useEffect(() => {
         const fetchedStoreData = [
             { Store_ID: 'SID1', Street: '123 Main St', State: 'CA', Zip: '12345' },
@@ -39,63 +41,65 @@ const Store = () => {
         setContactInformation(fetchedContactInformation);
     }, []);
 
+
+
     return (
-        <div className="store body-background">
-            <h1>Store</h1>
-            
-            {/* Store Locations */}
-            <section>
-                <h2>Store Location</h2>
-                <ul>
-                    {storeData.map(store => (
-                        <li key={store.Store_ID}>
-                            <a href={`/store/${store.Store_ID}`} className="link">
-                                {store.Street}, {store.State}, {store.Zip}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </section>
+        <div className="store-body">
+            <h1>Restaurant Name</h1>
 
-            {/* Menu */}
-            <section>
-                <h2>Menu</h2>
-                <ul>
-                    {menuData.map(item => (
-                        <li key={item.Item_ID}>
-                            {item.Item_name} - ${item.Price}
-                        </li>
-                    ))}
-                </ul>
-            </section>
+            <div className="store-columns">
+                <div className="left-column">
+                    <section className="store-section">
+                        <h2>Store Location</h2>
+                        <ul>
+                            {storeData.map(store => (
+                                <li key={store.Store_ID}>
+                                    <a href={`/store/${store.Store_ID}`} className="link">
+                                        {store.Street}, {store.State}, {store.Zip}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
 
-            {/* Inventory */}
-            <section>
-                <h2>Inventory</h2>
-                <ul>
-                    {inventoryData.map(item => (
-                        <li key={item.ItemName}>
-                            {item.ItemName} - {item.Quantity} {item.QuantityUnit}
-                        </li>
-                    ))}
-                </ul>
-            </section>
+                    <section className="store-section">
+                        <h2>Staff Information</h2>
+                        <ul>
+                            {staffInformation.map(staff => (
+                                <li key={staff.Employee_ID}>
+                                    {staff.Fname} {staff.Lname} - {staff.Role}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                </div>
 
+                <div className="right-column">
+                    <section className="store-section">
+                        <h2>Menu</h2>
+                        <ul>
+                            {menuData.map(item => (
+                                <li key={item.Item_ID}>
+                                    {item.Item_name} - ${item.Price.toFixed(2)}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
 
-            {/* Staff Information */}
-            <section>
-                <h2>Staff Information</h2>
-                <ul>
-                    {staffInformation.map(staff => (
-                        <li key={staff.Employee_ID}>
-                            {staff.Fname} {staff.Lname} - {staff.Role}
-                        </li>
-                    ))}
-                </ul>
-            </section>
+                    <section className="store-section">
+                        <h2>Inventory</h2>
+                        <ul>
+                            {inventoryData.map(item => (
+                                <li key={item.ItemName}>
+                                    {item.ItemName} - {item.Quantity} {item.QuantityUnit}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                </div>
+            </div>
 
-            {/* Contact Information */}
-            <section>
+            <section className="store-section">
                 <h2>Contact Information</h2>
                 <ul>
                     {contactInformation.map(contact => (
@@ -109,9 +113,6 @@ const Store = () => {
                     ))}
                 </ul>
             </section>
-
-            
-
         </div>
     );
 };
