@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 const Store = () => {
     const [storeData, setStoreData] = useState([]);
@@ -77,8 +78,10 @@ const Store = () => {
                 <div className="right-column">
                     <section className="store-section">
                         <h2>Menu</h2>
+                        <Link to="/menu" className="link"> View Menu </Link>
                         <ul>
                             {menuData.map(item => (
+                                
                                 <li key={item.Item_ID}>
                                     {item.Item_name} - ${item.Price.toFixed(2)}
                                 </li>
@@ -88,6 +91,7 @@ const Store = () => {
 
                     <section className="store-section">
                         <h2>Inventory</h2>
+                        <Link to="/inventory" className="link"> View Inventory </Link>
                         <ul>
                             {inventoryData.map(item => (
                                 <li key={item.ItemName}>
@@ -95,8 +99,10 @@ const Store = () => {
                                 </li>
                             ))}
                         </ul>
+
                     </section>
                 </div>
+
             </div>
 
             <section className="store-section">
