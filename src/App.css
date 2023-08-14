@@ -13,8 +13,8 @@
   color: white;
 }
 
+/* Test Page */
 .body-background {
-  /* float: center; */
   background-color: #37404B;
   color: #F4C87A
 }
@@ -35,25 +35,20 @@ select {
   font-size: 10px;
 }
 
-/* Select a store: size */
 .select-label {
   font-size: 20px;
   color: #F4C87A
 }
 
-/* Height and Width of the logo */
 .resize-logo {
   width: 400px;
   height: 400px;
 }
 
-/* Links */
 .link {
   color: white;
 }
 
-
-/* Project Tabs */
 .tabs {
   display: flex;
   justify-content: space-between;
@@ -81,11 +76,9 @@ select {
 .tab-text {
   width: 500px;
   height: 100px;
-  /* Keep some space around the text */
   border: 1px solid #F4C87A;
   border-radius: 4px;
   color: white;
-  /* Hide when not active */
   display: none;
 }
 .tab-text.active {
@@ -95,13 +88,6 @@ select {
 .App-link {
   color: #61dafb;
 }
-
-
-
-
-
-
-
 
 
 /* Store */
@@ -148,6 +134,118 @@ select {
   text-decoration: none;
   font-weight: bold;
 }
+
+
+
+/* Inventory */
+.inventory-container {
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.store-section {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.store-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.search-container {
+  margin-bottom: 15px;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+.inventory-table th,
+
+.inventory-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.inventory-table th {
+  background-color: rgb(212, 212, 212);
+  font-weight: bold;
+}
+
+.inventory-table tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.inventory-table tr:hover {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.search-container {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.search-container span {
+  margin-right: 10px;
+}
+
+.search-container input {
+  width: 600px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+
+.category-filter {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.category-filter {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.category-filter select {
+  width: 660px; 
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.category-filter span {
+  margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
