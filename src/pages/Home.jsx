@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logoImage from '../assets/CentralRestLogo.png';
 import { Link } from 'react-router-dom';
 
-const TestPage = () => {
+const Home = () => {
   const [selectedStore, setSelectedStore] = useState('');
   const [stores, setStores] = useState([
     { id: 'store1', name: 'Store 1' },
@@ -137,4 +137,4 @@ const TestPage = () => {
   );
 };
 
-export default TestPage;
+export default Home;
