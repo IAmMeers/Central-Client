@@ -1,61 +1,41 @@
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+  padding: 1rem;
 }
 
-.body-background {
-  float: center;
-  background-color: #37404B;
-  color: #F4C87A
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.dropdown {
-  width: 200px;
+th,
+td {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+  font-size: 32px;
 }
 
-.main-content {
+th {
+  background-color: rgb(117, 201, 250);
+}
+
+td {
+  background-color: rgb(205, 235, 253);
+}
+
+form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 5px;
 }
 
-select {
-  padding: 8px;  /* Padding for dropdown menu */
-  font-size: 10px; /* Font size for dropdown */
+form td:last-child {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-/* Select a store: size */
-.select-label {
-  font-size: 20px;
-  color: #F4C87A
-}
-
-/* Height and Width of the logo */
-.resize-logo {
-  width: 400px;
-  height: 400px;
-}
-
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+form * {
+  font-size: 28px;
 }

@@ -1,5 +1,6 @@
 
 import './App.css';
+import mock-data.json;
 import {
   Route,
   BrowserRouter,
@@ -7,6 +8,7 @@ import {
 } from "react-router-dom";
 import TestPage from './pages/TestPage';
 import Burger from './pages/Burger';
+import Menupage from './pages/Menupage';
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<TestPage/>}/>
           <Route path="/burger" element={<Burger/>}/>
+          <Route path="/MenuPage" element={<MenuPage/>}/>
+
         </Routes>
       </BrowserRouter>
     </div>
