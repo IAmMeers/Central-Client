@@ -61,9 +61,7 @@ const Store = () => {
                         <ul>
                             {storeData.map(store => (
                                 <li key={store.Store_ID}>
-                                    <a href={`/store/${store.Store_ID}`} className="link">
-                                        {store.Street}, {store.State}, {store.Zip}
-                                    </a>
+                                    {store.Street}, {store.State}, {store.Zip}
                                 </li>
                             ))}
                         </ul>
