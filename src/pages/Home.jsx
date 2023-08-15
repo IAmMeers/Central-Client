@@ -1,25 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logoImage from '../assets/CentralRestLogo.png';
 import { Link } from 'react-router-dom';
 
+import * as fetch from '../components/backend.js';
+import { isVisible } from '@testing-library/user-event/dist/utils';
+
 const Home = () => {
-  const [selectedStore, setSelectedStore] = useState('');
-  const [stores, setStores] = useState([
-    { id: 'store1', name: 'Store 1' },
-    { id: 'store2', name: 'Store 2' },
-  ]);
+  const [selectedStore, setSelectedStore] = useState(undefined);
+  const [stores, setStores] = useState([]);
   const [newStoreName, setNewStoreName] = useState('');
+
+  /* FETCH THE DATA */
+  useEffect(() => {
+
+    const fetchData = async () => {
+
+        const data = await fetch.getStoreList();            
+        setStores(data["data"]);
+        
+    }
+
+    fetchData()
+        .catch((response) => {
+            console.log(response.status, response.statusText);
+            response.json().then((json) => {
+                console.log(json);
+            })
+    });
+
+    console.log(stores);
+
+  }, []);
+
 
   const handleStoreChange = (event) => {
     setSelectedStore(event.target.value);
   };
 
   const addNewStore = (newStoreName) => {
-    const newStore = {
-      id: `store${stores.length + 1}`,
-      name: newStoreName,
-    };
-    setStores([...stores, newStore]);
+    // const newStore = {
+    //   id: `store${stores.length + 1}`,
+    //   name: newStoreName,
+    // };
+    // setStores([...stores, newStore]);
+    console.log(selectedStore);
   };
 
   const handleNewStoreNameChange = (event) => {
@@ -31,6 +55,9 @@ const Home = () => {
     addNewStore(newStoreName);
     setNewStoreName('');
   };
+
+
+
 
   const [activeTab, setActiveTab] = useState('overview');
   const tabContent = {
@@ -58,26 +85,38 @@ const Home = () => {
       </header>
       <div className="main-content">
         <div className="content-right">
-          <label htmlFor="stores-dropdown" className="select-label">
-            Select a store:
-          </label>
+
+          <div className="store-selection">
+            <label htmlFor="stores-dropdown" className="select-label">
+              Select a store
+            </label>
+            <br />
+            <select
+              id="stores-dropdown"
+              className="dropdown"
+              value={selectedStore}
+              onChange={handleStoreChange}
+            >
+              <option value="">Select a store</option>
+              {stores.map((store) => (
+                <option key={store.Store_id} value={store.Store_id}>
+                  {store.Store_name}
+                </option>
+              ))}
+            </select>
+            <br />
+            {selectedStore != undefined ? (
+              <Link to={`/store/` + selectedStore} className="link">Go to Store Page</Link>
+            ) : (
+              <></>
+            )}
+          </div>
+          
           <br />
-          <select
-            id="stores-dropdown"
-            className="dropdown"
-            value={selectedStore}
-            onChange={handleStoreChange}
-          >
-            <option value="">Select a store</option>
-            {stores.map((store) => (
-              <option key={store.id} value={store.id}>
-                {store.name}
-              </option>
-            ))}
-          </select>
-          <p> </p>
+          <br />
           <form onSubmit={handleAddStore}>
-            <label htmlFor="new-store-name">Add a new store: </label>
+            <label htmlFor="new-store-name">Add a new store</label>
+            <br />
             <input
               type="text"
               id="new-store-name"
@@ -86,15 +125,7 @@ const Home = () => {
             />
             <button type="submit">Add</button>
           </form>
-          <p> </p>
-          <Link to={`/${selectedStore}`} className="link">
-            Go to Selected Store: {selectedStore}
-          </Link>
-          <p> </p>
-          <Link to={`/store`} className="link">
-            Go to Store Page
-          </Link>
-          <p> </p>
+
         </div>
         <div className="content-left">
           <div className="tabs">
