@@ -5,8 +5,10 @@ import {
   BrowserRouter,
   Routes,
 } from "react-router-dom";
-import TestPage from './pages/TestPage';
-import Burger from './pages/Burger';
+import Home from './pages/Home';
+import Store from './pages/Store.jsx';
+import Menu from './pages/Menu.jsx';
+import Inventory from './pages/Inventory.jsx';
 
 
 function App() {
@@ -16,8 +18,10 @@ function App() {
       {}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<TestPage/>}/>
-          <Route path="/burger" element={<Burger/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="Store/:store_id" element={<Store/>}/>
+          <Route path="Menu/:store_id" element={<Menu/>}/>
+          <Route path="Inventory/:store_id" element={<Inventory/>}/>
         </Routes>
       </BrowserRouter>
     </div>
