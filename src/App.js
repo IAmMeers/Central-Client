@@ -5,9 +5,10 @@ import {
   BrowserRouter,
   Routes,
 } from "react-router-dom";
-import TestPage from './pages/TestPage';
+import Home from './pages/Home';
 import Store from './pages/Store.jsx';
-import Menu from './pages/Menu';
+import Menu from './pages/Menu.jsx';
+import Inventory from './pages/Inventory.jsx';
 
 
 function App() {
@@ -17,9 +18,10 @@ function App() {
       {}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<TestPage/>}/>
+          <Route path="/" element={<Home/>}/>
           <Route path="/Store" element={<Store/>}/>
           <Route path="/Menu" element={<Menu/>}/>
+          <Route path="/Inventory" element={<Inventory/>}/>
         </Routes>
       </BrowserRouter>
     </div>

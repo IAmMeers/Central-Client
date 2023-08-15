@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 const Store = () => {
     const [storeData, setStoreData] = useState([]);
     const [menuData, setMenuData] = useState([]);
-    const [inventoryData, setInventoryData] = useState([]);
+    //const [inventoryData, setInventoryData] = useState([]);
     const [staffInformation, setStaffInformation] = useState([]);
     const [contactInformation, setContactInformation] = useState([]);
 
@@ -14,15 +15,19 @@ const Store = () => {
             { Store_ID: 'SID1', Street: '123 Main St', State: 'CA', Zip: '12345' },
         ];
 
+        /*
         const fetchedMenuData = [
             { Item_ID: 'ITEMID1', Item_name: 'Cheeseburger', Price: 9.99 },
             { Item_ID: 'ITEMID2', Item_name: 'Margherita Pizza', Price: 12.50 },
         ];
+        */
 
+        /*
         const fetchedInventoryData = [
             { ItemName: 'Ground Beef', Quantity: 100, QuantityUnit: 'pounds', Threshold: 20 },
             { ItemName: 'Pizza Dough', Quantity: 50, QuantityUnit: 'pounds', Threshold: 15 },
         ];
+        */
 
         const fetchedStaffInformation = [
             { Employee_ID: 'EID1', Fname: 'John', Lname: 'Doe', Role: 'Manager' },
@@ -35,8 +40,8 @@ const Store = () => {
         ];
 
         setStoreData(fetchedStoreData);
-        setMenuData(fetchedMenuData);
-        setInventoryData(fetchedInventoryData);
+        //setMenuData(fetchedMenuData);
+        //setInventoryData(fetchedInventoryData);
         setStaffInformation(fetchedStaffInformation);
         setContactInformation(fetchedContactInformation);
     }, []);
@@ -77,26 +82,15 @@ const Store = () => {
                 <div className="right-column">
                     <section className="store-section">
                         <h2>Menu</h2>
-                        <ul>
-                            {menuData.map(item => (
-                                <li key={item.Item_ID}>
-                                    {item.Item_name} - ${item.Price.toFixed(2)}
-                                </li>
-                            ))}
-                        </ul>
+                        <Link to="/menu" className="link"> View Menu </Link>
                     </section>
 
                     <section className="store-section">
                         <h2>Inventory</h2>
-                        <ul>
-                            {inventoryData.map(item => (
-                                <li key={item.ItemName}>
-                                    {item.ItemName} - {item.Quantity} {item.QuantityUnit}
-                                </li>
-                            ))}
-                        </ul>
+                        <Link to="/inventory" className="link"> View Inventory </Link>
                     </section>
                 </div>
+
             </div>
 
             <section className="store-section">
