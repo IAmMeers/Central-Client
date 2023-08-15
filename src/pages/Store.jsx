@@ -5,8 +5,6 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const Store = () => {
     const [storeData, setStoreData] = useState([]);
-    const [menuData, setMenuData] = useState([]);
-    //const [inventoryData, setInventoryData] = useState([]);
     const [staffInformation, setStaffInformation] = useState([]);
     const [contactInformation, setContactInformation] = useState([]);
 
@@ -16,20 +14,6 @@ const Store = () => {
         const fetchedStoreData = [
             { Store_ID: 'SID1', Street: '123 Main St', State: 'CA', Zip: '12345' },
         ];
-
-        /*
-        const fetchedMenuData = [
-            { Item_ID: 'ITEMID1', Item_name: 'Cheeseburger', Price: 9.99 },
-            { Item_ID: 'ITEMID2', Item_name: 'Margherita Pizza', Price: 12.50 },
-        ];
-        */
-
-        /*
-        const fetchedInventoryData = [
-            { ItemName: 'Ground Beef', Quantity: 100, QuantityUnit: 'pounds', Threshold: 20 },
-            { ItemName: 'Pizza Dough', Quantity: 50, QuantityUnit: 'pounds', Threshold: 15 },
-        ];
-        */
 
         const fetchedStaffInformation = [
             { Employee_ID: 'EID1', Fname: 'John', Lname: 'Doe', Role: 'Manager' },
@@ -42,12 +26,9 @@ const Store = () => {
         ];
 
         setStoreData(fetchedStoreData);
-        //setMenuData(fetchedMenuData);
-        //setInventoryData(fetchedInventoryData);
         setStaffInformation(fetchedStaffInformation);
         setContactInformation(fetchedContactInformation);
     }, []);
-
 
 
     return (
