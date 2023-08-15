@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; 
-import getInventoryData from '../components/backend.js';
+import * as B from '../components/backend.js';
 
 const Inventory = () => {
 
@@ -16,7 +16,7 @@ const Inventory = () => {
 
         const fetchStoreData = async () => {
 
-            const data = await getInventoryData(params.store_id);            
+            const data = await B.getInventoryData(params.store_id);            
             setInventoryData(data["data"]);
             
         }
