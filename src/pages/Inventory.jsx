@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import { useParams } from 'react-router-dom'; 
+import getInventoryData from '../components/backend.js';
 
 const Inventory = () => {
+
+    const params = useParams();
+
     const [inventoryData, setInventoryData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('all');
@@ -11,20 +14,20 @@ const Inventory = () => {
     /* FETCH THE DATA */
     useEffect(() => {
 
-        //Fetch inventory data from server
-        fetch(SERVER_URL + "/Inventory?store_id=SID1")
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
-            setInventoryData(data["data"]);
-            console.log(inventoryData);
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
+        const fetchStoreData = async () => {
 
+            const data = await getInventoryData(params.store_id);            
+            setInventoryData(data["data"]);
+            
+        }
+
+        fetchStoreData()
+            .catch((response) => {
+                console.log(response.status, response.statusText);
+                response.json().then((json) => {
+                    console.log(json);
+                })
+        });
 
         // const fetchedInventoryData = [
         //     ['Chicken McNuggets', 'SID1', 150, 'pieces', 30, 'food'],
@@ -80,7 +83,7 @@ const Inventory = () => {
         // console.log(formattedInventoryData);
 
         // setInventoryData(formattedInventoryData);
-    }, []);
+    }, [params]);
 
     useEffect(() => {
         // Filter inventory based on search query and category
@@ -107,7 +110,7 @@ const Inventory = () => {
 
     return (
         <div className="inventory-container">
-            <h1>McDonalds</h1>
+            <h1>The Store ID is {params.store_id}</h1>
             <section className="store-section">
                 <h2>Inventory</h2>
                 <div className="search-container">

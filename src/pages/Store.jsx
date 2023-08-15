@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom'; 
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const Store = () => {
+
+    const params = useParams();
+
     const [storeData, setStoreData] = useState([]);
     const [menuData, setMenuData] = useState([]);
     //const [inventoryData, setInventoryData] = useState([]);
