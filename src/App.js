@@ -19,9 +19,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/Store" element={<Store/>}/>
-          <Route path="/Menu" element={<Menu/>}/>
-          <Route path="/Inventory" element={<Inventory/>}/>
+          <Route path="Store/:store_id" element={<Store/>}/>
+          <Route path="Menu/:store_id" element={<Menu/>}/>
+          <Route path="Inventory/:store_id" element={<Inventory/>}/>
         </Routes>
       </BrowserRouter>
     </div>
