@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const Store = () => {
     const [storeData, setStoreData] = useState([]);
     const [menuData, setMenuData] = useState([]);
