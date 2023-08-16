@@ -56,7 +56,7 @@ const Store = () => {
 
     return (
         <div className="store-body">
-            <h1>Restaurant Name</h1>
+            <h1>The store_id is {params.store_id}</h1>
 
             <div className="store-columns">
                 <div className="left-column">
@@ -88,12 +88,12 @@ const Store = () => {
                 <div className="right-column">
                     <section className="store-section">
                         <h2>Menu</h2>
-                        <Link to="/menu" className="link"> View Menu </Link>
+                        <Link to={"/menu/" + params.store_id} className="link"> View Menu </Link>
                     </section>
 
                     <section className="store-section">
                         <h2>Inventory</h2>
-                        <Link to="/inventory" className="link"> View Inventory </Link>
+                        <Link to={"/inventory/" + params.store_id} className="link"> View Inventory </Link>
                     </section>
                 </div>
 
