@@ -74,8 +74,10 @@ const Store = () => {
 
                 <div className="right-column">
                     <section className="store-section">
-                        <h2>Menu</h2>
+                        <h2>Store Menu</h2>
                         <Link to={"/menu/" + params.store_id} className="link"> View Menu </Link>
+                        <br></br>
+                        <Link to={"/ManageMenu/" + params.store_id} className="link"> Manage Menu </Link>
                     </section>
 
                     <section className="store-section">
