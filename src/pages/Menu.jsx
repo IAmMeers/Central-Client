@@ -52,11 +52,15 @@ return (
 
       <h2>{Menu}</h2>
         <ul>
-            {menuData.map(item => (
-                <li key={item.Item_name}>
-                  {item.Item_name} - ${item.Price}
-                </li>
-            ))}
+            {menuData.map(item => {
+              if (item.Status === 1) {
+                return (
+                  <li key={item.Item_name}>
+                    {item.Item_name} - ${item.Price}
+                  </li>
+                )
+              }
+            })}
         </ul>
       </section>
   </div>
