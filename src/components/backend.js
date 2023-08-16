@@ -27,6 +27,7 @@ export async function getStoreList() {
     
 }
 
+
 export async function getStoreData(store_id) {
     let URL = SERVER_URL + "/Store?store_id=" + store_id;
 
@@ -37,6 +38,7 @@ export async function getStoreData(store_id) {
     return Promise.reject(response);
     
 }
+
 
 export async function getMenuItemList(store_id) {
 

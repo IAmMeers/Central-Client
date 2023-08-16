@@ -39,11 +39,13 @@ const Store = () => {
     return (
         <div className="store-body">
 
+
             {storeData.map(store => (
                                 <h1 key={store.Store_ID}>
                                     {store.Store_name}
                                 </h1>
                             ))}
+
 
             <div className="store-columns">
                 <div className="left-column">
