@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom'; 
+import * as fetch from '../components/backend.js';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -9,65 +10,49 @@ const Store = () => {
     const params = useParams();
 
     const [storeData, setStoreData] = useState([]);
-    const [menuData, setMenuData] = useState([]);
-    //const [inventoryData, setInventoryData] = useState([]);
     const [staffInformation, setStaffInformation] = useState([]);
-    const [contactInformation, setContactInformation] = useState([]);
 
 
     /* FETCH THE DATA */
     useEffect(() => {
-        const fetchedStoreData = [
-            { Store_ID: 'SID1', Street: '123 Main St', State: 'CA', Zip: '12345' },
-        ];
 
-        /*
-        const fetchedMenuData = [
-            { Item_ID: 'ITEMID1', Item_name: 'Cheeseburger', Price: 9.99 },
-            { Item_ID: 'ITEMID2', Item_name: 'Margherita Pizza', Price: 12.50 },
-        ];
-        */
+        const fetchData = async () => {
 
-        /*
-        const fetchedInventoryData = [
-            { ItemName: 'Ground Beef', Quantity: 100, QuantityUnit: 'pounds', Threshold: 20 },
-            { ItemName: 'Pizza Dough', Quantity: 50, QuantityUnit: 'pounds', Threshold: 15 },
-        ];
-        */
-
-        const fetchedStaffInformation = [
-            { Employee_ID: 'EID1', Fname: 'John', Lname: 'Doe', Role: 'Manager' },
-            { Employee_ID: 'EID2', Fname: 'Jane', Lname: 'Smith', Role: 'Waiter' },
-            { Employee_ID: 'EID3', Fname: 'Michael', Lname: 'Johnson', Role: 'Cook' },
-        ];
-
-        const fetchedContactInformation = [
-            { Store_ID: 'SID1', Phone: '123-456-7890', Email: 'info@store1.com' },
-        ];
-
-        setStoreData(fetchedStoreData);
-        //setMenuData(fetchedMenuData);
-        //setInventoryData(fetchedInventoryData);
-        setStaffInformation(fetchedStaffInformation);
-        setContactInformation(fetchedContactInformation);
-    }, []);
-
+            const data = await fetch.getStoreData(params.store_id);            
+            setStoreData(data["data"]);
+            
+        }
+    
+        fetchData()
+            .catch((response) => {
+                console.log(response.status, response.statusText);
+                response.json().then((json) => {
+                    console.log(json);
+                })
+        });
+    
+        console.log(storeData);
+        
+    }, [params]);
 
 
     return (
         <div className="store-body">
-            <h1>The store_id is {params.store_id}</h1>
+
+            {storeData.map(store => (
+                                <h1 key={store.Store_ID}>
+                                    {store.Store_name}
+                                </h1>
+                            ))}
 
             <div className="store-columns">
                 <div className="left-column">
                     <section className="store-section">
-                        <h2>Store Location</h2>
+                        <h2>Store Location </h2>
                         <ul>
                             {storeData.map(store => (
                                 <li key={store.Store_ID}>
-                                    <a href={`/store/${store.Store_ID}`} className="link">
-                                        {store.Street}, {store.State}, {store.Zip}
-                                    </a>
+                                    {store.Street_num} {store.Street}  {store.City}  {store.Province}  {store.Postal} 
                                 </li>
                             ))}
                         </ul>
@@ -100,18 +85,7 @@ const Store = () => {
             </div>
 
             <section className="store-section">
-                <h2>Contact Information</h2>
-                <ul>
-                    {contactInformation.map(contact => (
-                        <li key={contact.Store_ID}>
-                            Store ID: {contact.Store_ID}
-                            <br />
-                            Phone: {contact.Phone}
-                            <br />
-                            Email: {contact.Email}
-                        </li>
-                    ))}
-                </ul>
+                <Link to="/" className="link"> Return Home </Link>
             </section>
         </div>
     );
