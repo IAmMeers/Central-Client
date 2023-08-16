@@ -3,17 +3,20 @@ import { useParams } from 'react-router-dom';
 import * as fetch from '../components/backend.js';
 import axios from 'axios';
 
-import {BsFillTrashFill, BsFillPencilFill} from 'react-icons/bs';
+import {BsFillTrashFill, BsFillPencilFill, BsPlusCircleDotted} from 'react-icons/bs';
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const ManageMenu = () => {
 
     const params = useParams();
+    const [store, setStore] = useState([{
+        Store_name: ""
+    }]);
 
     const [menuData, setMenuData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [categoryFilter, setCategoryFilter] = useState('all');
+    const [categoryFilter, setCategoryFilter] = useState('current');
     const [filteredMenu, setFilteredMenu] = useState([]);
 
     //New item form useStates
@@ -111,6 +114,33 @@ const ManageMenu = () => {
         });
 
     };
+
+    function handleReviveItem(item) {
+        let URL = SERVER_URL + "/menu/reviveItem"
+        const body = {
+            store_id: params.store_id,
+            item_id: item.Item_id
+        }   
+        //Delete item from menu 
+        axios.put(URL, body)
+        .then((response) => {
+            console.log(response.data);
+            //Fetch data again (refresh menu)
+            axios(SERVER_URL + "/Menu?store_id=" + params.store_id)
+            .then((response) => {
+                console.log(response.data);
+                setMenuData(response.data["data"]);
+            })
+            .catch((error) => {
+                console.log("Error fetching: \n" + error);
+                console.log(response);
+            });
+        })
+        .catch((error) => {
+            console.log("Error fetching: \n" + error);
+            console.log(error.response);
+        });
+    }
 
     const handleItemSubmit = (e) => {
         e.preventDefault();
@@ -218,23 +248,32 @@ const ManageMenu = () => {
     };
 
     const listItems = (item) => {   
-        if (item.Status === 1) {
-            return (
-                                    
-                <tr key={item.Item_id}>
-                    <td>{item.Item_name}</td>
-                    <td>{item.Description}</td>
-                    <td>{item.Price}</td>
-                    <td>
+
+        return (
+                                
+            <tr key={item.Item_id}>
+                <td>{item.Item_name}</td>
+                <td>{item.Description}</td>
+                <td>{item.Price}</td>
+                <td>
+                    { item.Status === 1 &&
                         <span className='actions'>
-                            <BsFillTrashFill onClick={() => handleDeleteItem(item)}/>
-                            <BsFillPencilFill onClick={() => handleEditRow(item)}/>
+                        <BsFillTrashFill onClick={() => handleDeleteItem(item)}/>
+                        <BsFillPencilFill onClick={() => handleEditRow(item)}/>
                         </span>
-                    </td>
-                </tr>
-                
-            );
-        }
+                    } 
+                    { item.Status === 0 &&
+                        <span className='actions'>
+                        <BsPlusCircleDotted onClick={() => handleReviveItem(item)}/>
+                        <BsFillPencilFill onClick={() => handleEditRow(item)}/>
+                        </span>
+                    }
+                    
+                </td>
+            </tr>
+            
+        );
+
     };
     
     /* FETCH THE DATA */
@@ -251,6 +290,18 @@ const ManageMenu = () => {
             console.log("Error fetching:" + error);
         });
 
+        //Get current store data
+        let STORE_URL = SERVER_URL + "/Store?store_id=" + params.store_id;
+        axios(STORE_URL)
+        .then((response) => {
+            console.log(response.data);
+            setStore(response.data["data"]);
+            console.log(store)
+        })
+        .catch((error) => {
+            console.log("Error fetching:" + error);
+        });
+
     }, []);
 
 
@@ -262,14 +313,12 @@ const ManageMenu = () => {
                 item.Item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 item.Store_id.toLowerCase().includes(searchQuery.toLowerCase());
 
-            if (categoryFilter === 'all') {
-                 return matchesQuery;
+            if (categoryFilter === 'current') {
+                 return matchesQuery && item.Status === 1;
+            
+            } else if (categoryFilter === 'old') {
+                return matchesQuery && item.Status === 0;
             }
-            // } else if (categoryFilter === 'items') {
-            //     return matchesQuery && item.Type === 'item';
-            // } else if (categoryFilter === 'food') {
-            //     return matchesQuery && item.Type === 'food';
-            // } 
 
             return false;
         });
@@ -282,6 +331,7 @@ const ManageMenu = () => {
         <div>
             <div className="inventory-container">
                 <section className="store-section">
+                    <h1>{store[0].Store_name}</h1>
                     <h2>Menu</h2>
                     <div className="search-container">
                         <span>Search Menu: </span>
@@ -292,17 +342,16 @@ const ManageMenu = () => {
                             onChange={e => setSearchQuery(e.target.value)}
                         />
                     </div>
-                    {/* <div className="category-filter">
+                    <div className="category-filter">
                         <span>Category: </span>
                         <select
                             value={categoryFilter}
                             onChange={e => setCategoryFilter(e.target.value)}
                         >
-                            <option value="all">All</option>
-                            <option value="items">Items</option>
-                            <option value="food">Food</option>
+                            <option value="current">Current Menu items</option>
+                            <option value="old">Old Menu items</option>
                         </select>
-                    </div> */}
+                    </div>
 
                     <table className="inventory-table">
                         <thead>
