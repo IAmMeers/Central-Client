@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; 
-import * as B from '../components/backend.js';
+import * as fetch from '../components/backend.js';
+import axios from 'axios';
+
+import {BsFillTrashFill, BsFillPencilFill} from 'react-icons/bs';
+
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 const Inventory = () => {
 
@@ -11,12 +16,123 @@ const Inventory = () => {
     const [categoryFilter, setCategoryFilter] = useState('all');
     const [filteredInventory, setFilteredInventory] = useState([]);
 
+
+    const [newItemOpen, setNewItemOpen] = useState(false);
+    const [formState, setFormState] = useState({
+        Item_name: "",
+        Quantity: 0,
+        Quantity_unit: "",
+        Threshold: 0
+    });
+    const [isEdit, setEdit] = useState(false);
+    const [disable, setDisable] = useState(true);
+    const [showConfirm, setShowConfirm] = useState(false);
+
+
+    function handleDeleteItem(item) {
+
+        console.log("Deleting item: " + item.Item_name);
+
+        let URL = SERVER_URL + "/inventory/deleteItem"
+        const body = {
+            store_id: params.store_id,
+            item_name: item.Item_name
+        }   
+        //Delete item from inventory 
+        axios.put(URL, body)
+        .then((response) => {
+            console.log(response.data);
+            //Fetch data again (refresh inventory)
+            axios(SERVER_URL + "/Inventory?store_id=" + params.store_id)
+            .then((response) => {
+                console.log(response.data);
+                setInventoryData(response.data["data"]);
+            })
+            .catch((error) => {
+                console.log("Error fetching: \n" + error);
+            });
+        })
+        .catch((error) => {
+            console.log("Error fetching: \n" + error);
+        });
+
+    };
+
+    const handleAddItem = (e) => {
+        e.preventDefault();
+        console.log(formState);
+        console.log(validateForm());
+        console.log(inventoryData);
+        if (!validateForm()) return;
+            
+        //Add item to inventory DB
+        let URL = SERVER_URL + "/inventory/addItem"
+        const body = {
+            store_id: params.store_id,
+            item_name: formState.Item_name,
+            quantity: formState.Quantity,
+            quantity_unit: formState.Quantity_unit,
+            threshold: formState.Threshold
+        }   
+
+        axios.post(URL, body)
+        .then((response) => {
+            console.log(response.data);
+            //Fetch data again (refresh inventory)
+            axios(SERVER_URL + "/Inventory?store_id=" + params.store_id)
+            .then((response) => {
+                console.log(response.data);
+                setInventoryData(response.data["data"]);
+                //Reset form
+                setFormState({
+                    Item_name: "",
+                    Quantity: '0',
+                    Quantity_unit: "",
+                    Threshold: '0'
+                });
+            })
+            .catch((error) => {
+                console.log("Error fetching: \n" + error);
+            });
+        })
+        .catch((error) => {
+            console.log("Error fetching: \n" + error);
+        });
+
+
+        setNewItemOpen(false); 
+        
+    };
+
+    const validateForm = () => {
+        //Check if all fields are filled
+        if (!formState.Item_name || !formState.Quantity || !formState.Quantity_unit || !formState.Threshold) return false;
+        //Check if quantity and threshold are numbers
+        if (isNaN(formState.Quantity) || isNaN(formState.Threshold)) return false;
+        //Check if quantity and threshold are positive
+        if (formState.Quantity < 0 || formState.Threshold < 0) return false;
+        //Check if item_name is under 50 characters
+        if (formState.Item_name.length > 50) return false;
+        //Check if quantity_unit is under 15 characters
+        if (formState.Quantity_unit.length > 15) return false;
+        
+        return true;
+
+    }
+
+    const handleChange = (e) => {
+        setFormState({
+            ...formState,
+            [e.target.name]: e.target.value
+        });
+    };
+    
     /* FETCH THE DATA */
     useEffect(() => {
 
         const fetchStoreData = async () => {
 
-            const data = await B.getInventoryData(params.store_id);            
+            const data = await fetch.getInventoryData(params.store_id);            
             setInventoryData(data["data"]);
             
         }
@@ -29,62 +145,10 @@ const Inventory = () => {
                 })
         });
 
-        // const fetchedInventoryData = [
-        //     ['Chicken McNuggets', 'SID1', 150, 'pieces', 30, 'food'],
-        //     ['Big Mac', 'SID1', 80, 'sandwiches', 20, 'food'],
-        //     ['French Fries', 'SID1', 200, 'servings', 40, 'food'],
-        //     ['Coca-Cola', 'SID1', 100, 'cups', 25, 'food'],
-        //     ['Buns', 'SID1', 300, 'pieces', 60, 'food'],
-        //     ['Ketchup', 'SID1', 20, 'bottles', 5, 'food'],
-        //     ['Mayonnaise', 'SID1', 25, 'jars', 6, 'food'],
-        //     ['Napkins', 'SID1', 1000, 'pieces', 200, 'item'],
-        //     ['Chicken Filets', 'SID1', 200, 'pieces', 40, 'food'],
-        //     ['Apple Pie', 'SID1', 40, 'pies', 10, 'food'],
-        //     ['McFlurry', 'SID1', 70, 'servings', 18, 'food'],
-        //     ['Cheese', 'SID1', 50, 'pounds', 10, 'food'],
-        //     ['Bottled Water', 'SID1', 120, 'bottles', 30, 'food'],
-        //     ['Lettuce', 'SID1', 30, 'pounds', 8, 'food'],
-        //     ['Onions', 'SID1', 40, 'pounds', 12, 'food'],
-        //     ['Tomatoes', 'SID1', 45, 'pounds', 10, 'food'],
-        //     ['Potatoes', 'SID1', 100, 'pounds', 20, 'food'],
-        //     ['Salt', 'SID1', 5, 'bags', 1, 'item'],
-        //     ['Pepper', 'SID1', 8, 'bottles', 2, 'item'],
-        //     ['Straws', 'SID1', 1000, 'pieces', 200, 'item'],
-        //     ['McChicken', 'SID1', 70, 'sandwiches', 15, 'food'],
-        //     ['Hash Browns', 'SID1', 100, 'pieces', 25, 'food'],
-        //     ['Milkshakes', 'SID1', 60, 'servings', 20, 'food'],
-        //     ['Apple Slices', 'SID1', 40, 'packs', 10, 'food'],
-        //     ['Bacon', 'SID1', 30, 'strips', 5, 'food'],
-        //     ['Hotcakes', 'SID1', 80, 'pieces', 18, 'food'],
-        //     ['Orange Juice', 'SID1', 50, 'cups', 12, 'food'],
-        //     ['Mustard', 'SID1', 15, 'bottles', 3, 'food'],
-        //     ['Plastic Cutlery', 'SID1', 500, 'sets', 100, 'item'],
-        //     ['Ice Cream Cones', 'SID1', 40, 'cones', 8, 'food'],
-        //     ['Lemonade', 'SID1', 75, 'cups', 20, 'food'],
-        //     ['Muffins', 'SID1', 50, 'pieces', 10, 'food'],
-        //     ['Onion Rings', 'SID1', 90, 'pieces', 18, 'food'],
-        //     ['Pickles', 'SID1', 25, 'jars', 5, 'food'],
-        //     ['Caramel Sundae', 'SID1', 60, 'sundaes', 15, 'food'],
-        //     ['Sausage Patties', 'SID1', 40, 'patties', 8, 'food'],
-        //     ['Disposable Cups', 'SID1', 200, 'cups', 40, 'item'],
-        //     ['Eggs', 'SID1', 120, 'eggs', 24, 'food'],
-        //     ['Creamer', 'SID1', 15, 'bottles', 3, 'item'],
-        // ];
+    }, []);
 
-        // const formattedInventoryData = fetchedInventoryData.map(item => ({
-        //     ItemName: item[0],
-        //     Store_ID: item[1],
-        //     Quantity: item[2],
-        //     QuantityUnit: item[3],
-        //     Threshold: item[4],
-        //     Type: item[5],
-        // }));
 
-        // console.log(formattedInventoryData);
-
-        // setInventoryData(formattedInventoryData);
-    }, [params]);
-
+    /* FILTER THE DATA */
     useEffect(() => {
         // Filter inventory based on search query and category
         const filteredItems = inventoryData.filter(item => {
@@ -109,53 +173,95 @@ const Inventory = () => {
     }, [searchQuery, categoryFilter, inventoryData]);
 
     return (
-        <div className="inventory-container">
-            <h1>The Store ID is {params.store_id}</h1>
-            <section className="store-section">
-                <h2>Inventory</h2>
-                <div className="search-container">
-                    <span>Search Inventory: </span>
-                    <input
-                        type="text"
-                        placeholder="Search inventory..."
-                        value={searchQuery}
-                        onChange={e => setSearchQuery(e.target.value)}
-                    />
-                </div>
-                <div className="category-filter">
-                    <span>Category: </span>
-                    <select
-                        value={categoryFilter}
-                        onChange={e => setCategoryFilter(e.target.value)}
-                    >
-                        <option value="all">All</option>
-                        <option value="items">Items</option>
-                        <option value="food">Food</option>
-                    </select>
-                </div>
-                <table className="inventory-table">
-                    <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
-                            <th>Quantity Unit</th>
-                            <th>Threshold</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredInventory.map(item => (
-                            <tr key={item.Item_name}>
-                                <td>{item.Item_name}</td>
-                                <td>{item.Quantity}</td>
-                                <td>{item.Quantity_unit}</td>
-                                <td>{item.Threshold}</td>
+        <div>
+            <div className="inventory-container">
+                <h1>The Store ID is {params.store_id}</h1>
+                <section className="store-section">
+                    <h2>Inventory</h2>
+                    <div className="search-container">
+                        <span>Search Inventory: </span>
+                        <input
+                            type="text"
+                            placeholder="Search inventory..."
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    {/* <div className="category-filter">
+                        <span>Category: </span>
+                        <select
+                            value={categoryFilter}
+                            onChange={e => setCategoryFilter(e.target.value)}
+                        >
+                            <option value="all">All</option>
+                            <option value="items">Items</option>
+                            <option value="food">Food</option>
+                        </select>
+                    </div> */}
+
+                    <table className="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Quantity Unit</th>
+                                <th>Threshold</th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
+                        </thead>
+                        <tbody>
+                            {filteredInventory.map(item => (
+                                <tr key={item.Item_name}>
+                                    <td>{item.Item_name}</td>
+                                    <td>{item.Quantity}</td>
+                                    <td>{item.Quantity_unit}</td>
+                                    <td>{item.Threshold}</td>
+                                    <td>
+                                        <span className='actions'>
+                                            <BsFillTrashFill onClick={() => handleDeleteItem(item)}/>
+                                            <BsFillPencilFill />
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </section>
+                <button className='btn' onClick={() => setNewItemOpen(true)}>Add</button>
+            </div>
+            {newItemOpen &&   
+            <div className="new-item-container" onClick={(e) => {
+                if(e.target.className === 'new-item-container')
+                setNewItemOpen(false)
+            }}>
+                <div className="new-item" >
+                    <form >
+                        <div className='form-group'>
+                            <label htmlFor="Item_name">Item Name</label>
+                            <input name="Item_name" value={formState.Item_name} onChange={handleChange}/>
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor="Quantity">Quantity</label>
+                            <input name="Quantity" value={formState.Quantity} onChange={handleChange}/>
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor="Quantity_unit">Quantity Unit</label>
+                            <input name="Quantity_unit" value={formState.Quantity_unit} onChange={handleChange}/>
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor="Threshold">Threshold</label>
+                            <input name="Threshold" value={formState.Threshold} onChange={handleChange}/>
+                        </div>
+                        <button type="submit" className='btn' onClick={handleAddItem}>Submit</button>
+                    </form>
+                </div>
+            </div>
+            }       
         </div>
     );
+
+
 };
 
 export default Inventory;

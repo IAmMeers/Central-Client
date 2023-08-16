@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import logoImage from '../assets/CentralRestLogo.png';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 import * as fetch from '../components/backend.js';
-import { isVisible } from '@testing-library/user-event/dist/utils';
+
 
 const Home = () => {
   const [selectedStore, setSelectedStore] = useState(undefined);
   const [stores, setStores] = useState([]);
   const [newStoreName, setNewStoreName] = useState('');
 
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
   /* FETCH THE DATA */
   useEffect(() => {
 
-    const fetchData = async () => {
-
-        const data = await fetch.getStoreList();            
-        setStores(data["data"]);
-        
-    }
-
-    fetchData()
-        .catch((response) => {
-            console.log(response.status, response.statusText);
-            response.json().then((json) => {
-                console.log(json);
-            })
+    let URL = SERVER_URL + "/store/StoreList";
+    axios(URL)
+    .then((response) => {
+      console.log(response.data);
+      setStores(response.data["data"]);
+    })
+    .catch((error) => {
+      console.log("Error fetching:" + error);
     });
-
-    console.log(stores);
 
   }, []);
 

@@ -26,3 +26,41 @@ export async function getStoreList() {
     return Promise.reject(response);
     
 }
+
+export async function getMenuItemList(store_id) {
+
+    let URL = SERVER_URL + "/menu?store_id=" + store_id;
+    console.log(URL);
+
+    const response = await fetch(URL);
+    if (response.ok) {
+        return response.json();
+    }
+    return Promise.reject(response);
+    
+}
+
+
+// export async function deleteInventoryItem(store_id, item_name) {
+//     let URL = SERVER_URL + "/menu/deleteItem"
+//     console.log(URL);
+
+//     const body = {
+//         store_id: store_id,
+//         item_name: item_name
+//     }    
+
+//     const fetchData = {
+//         method: 'DELETE',
+//         body: JSON.stringify(body),
+//         headers: new Headers({
+//             'Content-Type': 'application/json; charset=UTF-8'
+//           })
+//     }
+
+//     const response = await fetch(URL, fetchData);
+//     if (response.ok) {
+//         return response.json();
+//     }
+//     return Promise.reject(response);
+// };
