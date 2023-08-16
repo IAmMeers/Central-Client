@@ -26,3 +26,14 @@ export async function getStoreList() {
     return Promise.reject(response);
     
 }
+
+export async function getStoreData(store_id) {
+    let URL = SERVER_URL + "/Store?store_id=" + store_id;
+
+    const response = await fetch(URL);
+    if (response.ok) {
+        return response.json();
+    }
+    return Promise.reject(response);
+    
+}
