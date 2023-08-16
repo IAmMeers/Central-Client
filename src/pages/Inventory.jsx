@@ -258,9 +258,6 @@ const Inventory = () => {
         fetchStoreData()
             .catch((response) => {
                 console.log(response.status, response.statusText);
-                response.json().then((json) => {
-                    console.log(json);
-                })
         });
 
     }, []);
