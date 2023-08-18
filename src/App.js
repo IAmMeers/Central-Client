@@ -21,7 +21,7 @@ function App() {
       {}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home/>}/>
+          <Route path="/Central-Client" element={<Home/>}/>
           <Route path="Store/:store_id" element={<Store/>}/>
           <Route path="Menu/:store_id" element={<Menu/>}/>
           <Route path="ManageMenu/:store_id" element={<ManageMenu/>}/>
