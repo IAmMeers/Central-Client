@@ -1,9 +1,9 @@
 .App {
   text-align: center;
+  background-color: #282c34;
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,10 +13,9 @@
   color: white;
 }
 
-/* Test Page */
 .body-background {
-  background-color: #37404B;
-  color: #F4C87A
+  background-color: #37404b;
+  color: #f4c87a;
 }
 
 .dropdown {
@@ -29,15 +28,21 @@
   align-items: center;
 }
 
+.main-content .btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0px 3px 6px #1c5494;
+}
+
 /* Drop Down Menu */
 select {
   padding: 8px;
   font-size: 10px;
-}
-
-.select-label {
-  font-size: 20px;
-  color: #F4C87A
 }
 
 .resize-logo {
@@ -65,8 +70,8 @@ select {
 }
 
 .tab.active {
-  color: #F4C87A;
-  border-bottom: 2px solid #F4C87A;
+  color: #f4c87a;
+  border-bottom: 2px solid #f4c87a;
 }
 
 .tab-content {
@@ -76,7 +81,7 @@ select {
 .tab-text {
   width: 500px;
   height: 100px;
-  border: 1px solid #F4C87A;
+  border: 1px solid #f4c87a;
   border-radius: 4px;
   color: white;
   display: none;
@@ -89,15 +94,19 @@ select {
   color: #61dafb;
 }
 
-
 /* Store */
 .store-body {
   text-align: center;
-  background-color: #f0f0f0;
+  background-color: #37404b;
   padding: 20px;
 }
 
+.store-body h1 {
+  color: #f4c87a;
+}
+
 .store-columns {
+  background-color: #37404b;
   display: flex;
   justify-content: space-between;
 }
@@ -108,14 +117,16 @@ select {
 }
 
 .store-section {
+  color: #fff;
   margin-bottom: 20px;
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: #47515e;
+  /* border: 1px solid #ccc; */
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
 }
 
 .store-section h2 {
+  color: #f4c87a;
   font-size: 24px;
   margin-bottom: 10px;
 }
@@ -130,26 +141,20 @@ select {
 }
 
 .store-section a {
-  color: #007bff;
+  color: #ffffff;
   text-decoration: none;
   font-weight: bold;
 }
 
-
+.store-section a:hover {
+  color: #f1b347;
+}
 
 /* Inventory */
 .inventory-container {
   text-align: center;
-  background-color: #f0f0f0;
+  background-color: #47515e;
   padding: 20px;
-}
-
-.store-section {
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .store-section h2 {
@@ -161,6 +166,10 @@ select {
   margin-bottom: 15px;
 }
 
+.search-container input {
+  /* width: 10px; */
+}
+
 .inventory-table {
   width: 100%;
   border-collapse: collapse;
@@ -168,24 +177,23 @@ select {
 }
 
 .inventory-table th,
-
 .inventory-table td {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #3b3d3f;
 }
 
 .inventory-table th {
-  background-color: rgb(212, 212, 212);
+  background-color: #425670;
+  /* background-color: rgb(212, 212, 212); */
   font-weight: bold;
 }
 
 .inventory-table tr:nth-child(even) {
-  background-color: #f5f5f5;
+  background-color: #4f5862;
 }
 
-.inventory-table tr:hover {
-  /* background-color: #e0e0e0; */
-  /* cursor: pointer; */
+.threshold-exceed td {
+  background-color: #704242;
 }
 
 .inventory-container .btn {
@@ -196,7 +204,7 @@ select {
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0px 5px 5px #ccc;
+  box-shadow: 0px 3px 6px #1c5494;
 }
 
 .inventory-container .btn:hover {
@@ -234,7 +242,7 @@ select {
   top: 0;
   width: 100%;
   height: 100%;
-  display: flex; 
+  display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -249,6 +257,7 @@ select {
 }
 
 .form-group {
+  color: #000;
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
@@ -257,7 +266,6 @@ select {
 .form-group input,
 .form-group textarea,
 .form-group select {
-  
   border: 1px solid #000000;
   border-radius: 0.3rem;
   padding: 0.3rem;
@@ -294,7 +302,6 @@ select {
   font-size: 16px;
 }
 
-
 .category-filter {
   margin-bottom: 15px;
   display: flex;
@@ -308,7 +315,7 @@ select {
 }
 
 .category-filter select {
-  width: 660px; 
+  width: 660px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -318,24 +325,6 @@ select {
 .category-filter span {
   margin-right: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @keyframes App-logo-spin {
   from {

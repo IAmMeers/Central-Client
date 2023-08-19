@@ -1,14 +1,15 @@
-import React, { useState, useEffect, } from 'react';
-import { useParams } from 'react-router-dom'; 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import axios from "axios";
 
 const Menu = () => {
-
   const [menuData, setMenuData] = useState([]);
-  const [store, setStore] = useState([{
-    Store_name: ""
-  }]);
+  const [store, setStore] = useState([
+    {
+      Store_name: "",
+    },
+  ]);
 
   const params = useParams();
 
@@ -16,55 +17,57 @@ const Menu = () => {
 
   /* FETCH THE DATA */
   useEffect(() => {
-
     //Get menu data
     let URL = SERVER_URL + "/Menu?store_id=" + params.store_id;
     axios(URL)
-    .then((response) => {
-      console.log(response.data);
-      setMenuData(response.data["data"]);
-      console.log(menuData);
-    })
-    .catch((error) => {
-      console.log("Error fetching:" + error);
-    });
+      .then((response) => {
+        console.log(response.data);
+        setMenuData(response.data["data"]);
+        console.log(menuData);
+      })
+      .catch((error) => {
+        console.log("Error fetching:" + error);
+      });
 
     //Get current store data
     let STORE_URL = SERVER_URL + "/Store?store_id=" + params.store_id;
     axios(STORE_URL)
-    .then((response) => {
-      console.log(response.data);
-      setStore(response.data["data"]);
-      console.log(store)
-    })
-    .catch((error) => {
-      console.log("Error fetching:" + error);
-    });
+      .then((response) => {
+        console.log(response.data);
+        setStore(response.data["data"]);
+        console.log(store);
+      })
+      .catch((error) => {
+        console.log("Error fetching:" + error);
+      });
+  }, []);
 
-}, []);
-
-
-return (
-  <div className="store-body">
+  return (
+    <div className="store-body">
       <h1>{store[0].Store_name}</h1>
 
       <section className="store-section">
-
-      <h2>{Menu}</h2>
-        <ul>
-            {menuData.map(item => {
+        <h2>{Menu}</h2>
+        {menuData.length > 0 ? (
+          <ul>
+            {menuData.map((item) => {
               if (item.Status === 1) {
                 return (
                   <li key={item.Item_name}>
                     {item.Item_name} - ${item.Price}
                   </li>
-                )
+                );
               }
             })}
-        </ul>
+          </ul>
+        ) : (
+          <div>
+            <h2>No menu items available</h2>
+          </div>
+        )}
       </section>
-  </div>
-);
+    </div>
+  );
 };
 
-export default Menu
+export default Menu;
