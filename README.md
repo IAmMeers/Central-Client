@@ -6,7 +6,7 @@ Central Restaurant Management is a project our team designed for our database cl
 
 The database is designed to follow Boyce Codd Normal Form.
 
-NOTE: This repo is for the front-end platform, created with React.  The backend is currently not running on Heroku due to platform costs so the website link does not work properly.  
+NOTE: This repo is for the front-end platform, created with React.  The backend is currently not running on Heroku due to platform costs so the website link does not work properly.  Backend will be migrated to a different platform soon.
 ## Authors
 
 - Luka Smith
